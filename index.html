@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Umuwi ka na Si!</title>
+  <link rel="icon" type="image/png" href="si.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --lime: #dfff80;
+      --lime-deep: #caff44;
+      --ink: #1d2b00;
+      --card: #f6ffd1;
+      --accent: #ff4d6d;
+      --shadow: #1d2b00;
+      color-scheme: light;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      color: var(--ink);
+      background: var(--lime);
+      background-image:
+        linear-gradient(to top, #1d2b00 0%, transparent 35%),
+        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, .35), transparent 45%),
+        radial-gradient(circle at 85% 90%, var(--lime-deep), transparent 50%);
+      background-attachment: fixed;
+      font-family: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+      font-weight: 500;
+      line-height: 1.45;
+      transition: background-color .35s;
+    }
+
+    body.dramatic {
+      background-color: #ffb6d9;
+      background-image:
+        linear-gradient(to top, #1d2b00 0%, transparent 35%),
+        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, .4), transparent 45%),
+        radial-gradient(circle at 85% 90%, #ff69b4, transparent 50%);
+    }
+
+    .wrap {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      width: min(100% - 40px, 1260px);
+      margin-inline: auto;
+      padding: 30px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    h1 {
+      align-self: flex-start;
+      margin: 0 0 30px;
+      font-size: clamp(3.5rem, 7.4vw, 6.6rem);
+      font-weight: 800;
+      line-height: .95;
+      letter-spacing: -.035em;
+      transform: rotate(-2deg);
+      transform-origin: left bottom;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: clamp(390px, 46vw, 600px);
+      margin: 0 0 22px;
+    }
+
+    .hero-rect {
+      position: absolute;
+      inset: 0 0 145px;
+      overflow: hidden;
+      border: 7px solid var(--ink);
+      border-radius: 58px;
+      background: var(--card);
+      box-shadow: 12px 12px 0 var(--shadow);
+    }
+
+    .hero-rect img {
+      display: block;
+      width: 120%;
+      height: 145%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center 42%;
+      transform: translate(-5%, -12%) rotate(-7deg);
+    }
+
+    .hero-circle {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      bottom: 0;
+      width: clamp(300px, 33vw, 450px);
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      border: 7px solid var(--ink);
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--card);
+      box-shadow: 12px 12px 0 var(--shadow);
+      animation: wobble 6s ease-in-out infinite;
+    }
+
+    .hero-circle img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.12);
+    }
+
+    @keyframes wobble {
+      0%, 100% {
+        transform: translateX(-50%) rotate(-2deg);
+      }
+      50% {
+        transform: translateX(-50%) rotate(2deg);
+      }
+    }
+
+    h1.si {
+      align-self: center;      
+      margin: 0% auto;
+      font-size: clamp(2.4rem, 9vw, 5.5rem);
+      font-family: "Courier New", Courier, monospace;
+      line-height: 1.1;
+      font-weight: 900;
+      text-shadow: 4px 4px 0 #fff;   
+    }
+
+    h1.si span {
+      display: inline-block;
+      color: #ff1493;
+      text-shadow: 3px 3px 0 white;
+    }
+
+    .btn {
+      position: relative;
+      align-self: center;
+      max-width: 100%;
+      font: inherit;
+      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      font-weight: 800;
+      color: var(--ink);
+      background: #fff;
+      border: 4px solid var(--ink);
+      border-radius: 20px;
+      padding: 9px 32px;
+      cursor: pointer;
+      box-shadow: 0 6px 0 var(--shadow);
+      transition: transform .08s, box-shadow .08s, background .15s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover {
+      background: var(--card);
+    }
+
+    .btn:active,
+    .btn.pressed {
+      transform: translateY(5px);
+      box-shadow: 0 1px 0 var(--shadow);
+    }
+
+    .btn:focus-visible {
+      outline: 4px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      margin: 4px auto 0;
+    }
+
+    .secondary-btn {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      padding: 8px 22px;
+      border-width: 3px;
+      border-radius: 16px;
+      box-shadow: 0 5px 0 var(--shadow);
+    }
+
+    .plus {
+      position: absolute;
+      left: 50%;
+      top: -6px;
+      font-weight: 800;
+      color: var(--accent);
+      pointer-events: none;
+      animation: plus .8s ease-out forwards;
+    }
+
+    @keyframes plus {
+      to {
+        transform: translate(var(--dx), -70px) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .counter {
+      width: min(100%, 560px);
+      align-self: center;
+      margin: 34px 0 28px;
+      padding: 14px 10px 12px;
+      text-align: center;
+      background: var(--card);
+      border: 4px solid var(--ink);
+      border-radius: 30px;
+      box-shadow: 6px 6px 0 var(--shadow);
+    }
+
+    .count {
+      display: block;
+      font-size: clamp(3.4rem, 10vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .count.bump {
+      animation: bump .35s cubic-bezier(.3, 1.8, .5, 1);
+    }
+
+    @keyframes bump {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.25) rotate(-4deg); }
+      100% { transform: scale(1); }
+    }
+
+    .counter small {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    #message {
+      width: min(100%, 680px);
+      min-height: 48px;
+      align-self: center;
+      margin: 0 auto 20px;
+      text-align: center;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .surprise {
+      display: none;
+      width: min(100%, 680px);
+      align-self: center;
+      margin: 0 auto 32px;
+      padding: 22px;
+      text-align: center;
+      background: var(--card);
+      border: 4px solid var(--ink);
+      border-radius: 28px;
+      box-shadow: 7px 7px 0 var(--shadow);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 800;
+      line-height: 1.8;
+    }
+
+    .surprise.show {
+      display: block;
+      animation: enter .4s ease-out;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      background-color: #1d2b00;
+      margin-top: auto;
+      border-top: 3px solid var(--ink);
+      text-align: center;
+      padding: 10px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+      color: #fff;
+      font-weight: 700;
+    }
+
+    #sky {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .float {
+      position: absolute;
+      bottom: -60px;
+      line-height: 1;
+      user-select: none;
+      will-change: transform, opacity;
+      animation: rise var(--dur) linear forwards;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translate(0, 0) rotate(0);
+        opacity: 0;
+      }
+      10% { opacity: .85; }
+      100% {
+        transform: translate(var(--sway), calc(-100vh - 120px)) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+
+    .pop {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      font-size: 2rem;
+      animation: pop 1s ease-out forwards;
+    }
+
+    @keyframes pop {
+      from {
+        transform: translate(-50%, -50%) scale(.3);
+        opacity: 1;
+      }
+      to {
+        transform: translate(-50%, -150%) scale(1.8) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        width: calc(100% - 32px);
+        padding-top: 24px;
+      }
+
+      h1 {
+        margin-bottom: 22px;
+        font-size: clamp(3.2rem, 14vw, 5rem);
+      }
+
+      .hero {
+        height: clamp(300px, 90vw, 430px);
+        margin-bottom: 12px;
+      }
+
+      .hero-rect {
+        inset: 0 0 100px;
+        border-width: 5px;
+        border-radius: clamp(24px, 7vw, 38px);
+        box-shadow: 7px 7px 0 var(--shadow);
+      }
+
+      .hero-rect img {
+        width: 145%;
+        height: 130%;
+        transform: translate(-10%, -8%) rotate(-7deg);
+      }
+
+      .hero-circle {
+        width: clamp(210px, 63vw, 310px);
+        border-width: 5px;
+        box-shadow: 7px 7px 0 var(--shadow);
+      }
+
+      h1.si {
+        font-size: clamp(2rem, 9vw, 4rem);
+        overflow-wrap: anywhere;
+      }
+
+      .button-row {
+        gap: 14px;
+      }
+
+      .secondary-btn {
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .button-row {
+        flex-direction: column;
+      }
+
+      .secondary-btn {
+        width: min(100%, 300px);
+      }
+    }
+
+    @media (max-width: 380px) {
+      .page {
+        width: calc(100% - 24px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        height: 285px;
+      }
+
+      .hero-rect {
+        inset: 0 0 82px;
+      }
+
+      .hero-circle {
+        width: min(70vw, 220px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="sky" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <main class="page">
+      <h1>PLEASE LANG SI UMUWI KA NA 😭😭😭</h1>
+
+      <section class="hero" aria-label="Coconut pictures">
+        <div class="hero-rect">
+          <img src="si.png" alt="si">
+        </div>
+
+        <div class="hero-circle">
+          <img src="si.png" alt="si">
+        </div>
+      </section>
+
+      <br><br><br>
+
+      <h1 class="si">
+        PLEASE UMUWI KA NA <span>SI!!!</span>
+      </h1>
+
+      <br><br><br>
+      <div class="button-row">
+      <button class="btn " id="please" type="button">Please</button>
+      </div>
+
+      <section class="counter" aria-label="Please counter">
+        <output class="count" id="count" aria-live="polite">0</output>
+        <small>Please counter</small>
+      </section>
+
+      <p id="message" aria-live="polite">    
+      </p>
+
+      <section class="surprise" id="surprise" aria-hidden="true">
+      </section>
+    </main>
+
+    <footer>
+      © Umuwi ka na please nagpapakaawa na ako oh. 2026 All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      // Please counter and begging messages
+      const btn = document.getElementById("please");
+      const out = document.getElementById("count");
+      const message = document.getElementById("message");
+      const onTheWayBtn = document.getElementById("onTheWay");
+      const surpriseBtn = document.getElementById("surpriseBtn");
+      const surpriseBox = document.getElementById("surprise");
+      const sky = document.getElementById("sky");
+
+      let count = 0;
+      let audioContext = null;
+      let soundEnabled = false;
+      let floatTimer = null;
+
+      const messages = [];
+
+      const emojis = ["😭", "❤️", "💔", "💢", "💚", "🥹", "🏡", "💌", "✨"];
+      const popEmojis = ["😭", "💗", "✨", "🥹", "💚", "💌"];
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      const rand = (min, max) => min + Math.random() * (max - min);
+
+      // Optional browser-generated sound effects
+      function beep(frequency = 600) {
+        if (!soundEnabled) return;
+
+        try {
+          const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+          if (!AudioContextClass) return;
+
+          audioContext ??= new AudioContextClass();
+
+          if (audioContext.state === "suspended") {
+            audioContext.resume();
+          }
+
+          const oscillator = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+
+          oscillator.type = "sine";
+          oscillator.frequency.value = frequency;
+
+          gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + 0.2
+          );
+
+          oscillator.connect(gain);
+          gain.connect(audioContext.destination);
+
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + 0.2);
+        } catch (error) {
+          // The page still works if sound is unavailable.
+        }
+      }
+
+      // Floating emojis, matching File 1's original effect
+      function spawn() {
+        if (reducedMotion || document.hidden) return;
+
+        const el = document.createElement("span");
+        el.className = "float";
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = rand(0, 96) + "%";
+        el.style.fontSize = rand(22, 62) + "px";
+        el.style.setProperty("--dur", rand(4.5, 11) + "s");
+        el.style.setProperty("--sway", rand(-70, 70) + "px");
+        el.style.setProperty("--rot", rand(-40, 40) + "deg");
+
+        sky.appendChild(el);
+        el.addEventListener("animationend", () => el.remove(), { once: true });
+      }
+
+      function startFloating() {
+        if (floatTimer !== null || reducedMotion) return;
+
+        spawn();
+        floatTimer = window.setInterval(spawn, 650);
+      }
+
+      function stopFloating() {
+        if (floatTimer !== null) {
+          clearInterval(floatTimer);
+          floatTimer = null;
+        }
+      }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopFloating();
+        } else {
+          startFloating();
+        }
+      });
+
+      startFloating();
+
+      // Emoji burst when a button is used
+      function burst(x, y, amount = 12) {
+        if (reducedMotion) return;
+
+        for (let i = 0; i < amount; i++) {
+          const el = document.createElement("span");
+          el.className = "pop";
+          el.textContent =
+            popEmojis[Math.floor(Math.random() * popEmojis.length)];
+
+          el.style.left = x + rand(-90, 90) + "px";
+          el.style.top = y + rand(-50, 50) + "px";
+
+          document.body.appendChild(el);
+          el.addEventListener("animationend", () => el.remove(), {
+            once: true
+          });
+        }
+      }
+
+      function burstFromButton(button) {
+        const rect = button.getBoundingClientRect();
+
+        burst(
+          rect.left + rect.width / 2,
+          rect.top + rect.height / 2
+        );
+      }
+
+      // Main Please button
+      btn.addEventListener("click", () => {
+        count += 1;
+        out.textContent = count;
+
+        out.classList.remove("bump");
+        void out.offsetWidth;
+        out.classList.add("bump");
+
+        const plus = document.createElement("span");
+        plus.className = "plus";
+        plus.textContent = "+1";
+        plus.style.setProperty("--dx", rand(-40, 40) + "px");
+
+        btn.appendChild(plus);
+        plus.addEventListener("animationend", () => plus.remove(), {
+          once: true
+        });
+
+        message.textContent =
+          messages[Math.min(count - 1, messages.length - 1)];
+
+        btn.textContent =
+          count >= 5 ? "PLEASE NA TALAGA 😭💔" : "Please";
+
+        document.body.classList.toggle("dramatic", count % 2 === 0);
+
+        burstFromButton(btn);
+        beep(400 + Math.min(count * 40, 500));
+      });
+
+      // "Pauwi na ako" button
+      onTheWayBtn.addEventListener("click", () => {
+        message.textContent =
+          "YEHEYYYY!!! 🥳💗 SABI MO YAN HA!! " +
+          "MAG-IINGAT KA SA PAG-UWI!! 🏡✨";
+
+        document.body.classList.remove("dramatic");
+
+        burstFromButton(onTheWayBtn);
+        beep(850);
+      });
+
+      // Secret message toggle
+      surpriseBtn.addEventListener("click", () => {
+        const isShowing = surpriseBox.classList.toggle("show");
+
+        surpriseBtn.setAttribute("aria-expanded", String(isShowing));
+        surpriseBox.setAttribute("aria-hidden", String(!isShowing));
+
+        if (isShowing) {
+          surpriseBox.scrollIntoView({
+            behavior: reducedMotion ? "auto" : "smooth",
+            block: "nearest"
+          });
+
+          burstFromButton(surpriseBtn);
+          beep(700);
+        }
+      });
+
+      // Press M to toggle sound effects
+      document.addEventListener("keydown", event => {
+        if (
+          event.key.toLowerCase() === "m" &&
+          !event.ctrlKey &&
+          !event.metaKey &&
+          !event.altKey &&
+          !event.repeat
+        ) {
+          soundEnabled = !soundEnabled;
+
+          message.textContent = soundEnabled
+            ? "SOUND EFFECTS ON 🔊💗"
+            : "SOUND EFFECTS OFF 🔇";
+
+          beep(700);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
